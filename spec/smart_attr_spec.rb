@@ -12,16 +12,16 @@ describe SmartAttr do
 
   describe 'define some class methods' do
 
-    subject { Book }
+    subject { Movie }
 
-    it { should respond_to(:clever_column) }
+    it { should respond_to(:smart_attr) }
     it { should respond_to(:star_config) }
     it { should respond_to(:star_array) }
 
   end
 
   describe 'define some instance methods' do
-    subject { Book.new }
+    subject { Movie.new }
 
     it { should respond_to(:star_config) }
     it { should respond_to(:star_desc) }

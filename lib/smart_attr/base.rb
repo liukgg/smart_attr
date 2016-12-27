@@ -7,7 +7,8 @@ module SmartAttr
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def clever_column *args
+
+      def smart_attr *args
         column_name, options = args[0], args.extract_options!
 
         config = ConfigHash.new(options[:config])
