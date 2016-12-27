@@ -1,8 +1,5 @@
 # SmartAttr
 
-## Status
-[![Build Status](https://travis-ci.org/liukgg/smart_attr.png)](https://travis-ci.org/liukgg/smart_attr)
-
 This gem helps you make your model's attribute smart.You can get many useful methods with only a little code.
 
 ## Installation
@@ -24,6 +21,14 @@ Or install it yourself as:
 ## Usage
 
 TODO: Write usage instructions here
+
+## Supported Ruby Version
+From 2.0.0 To 2.3.3
+
+NOTE: 2.4.0 is not supported yet!
+
+## Status
+[![Build Status](https://travis-ci.org/liukgg/smart_attr.png)](https://travis-ci.org/liukgg/smart_attr)
 
 ## Development
 
