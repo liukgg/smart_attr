@@ -1,6 +1,8 @@
 # encoding: utf-8
 class Movie
 
+  include SmartAttr::Base
+
   smart_attr :star, config: {
     one:    { value: 1, desc: 'one star' },
     two:    { value: 2, desc: 'two star' },

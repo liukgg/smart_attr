@@ -1,4 +1,4 @@
-require 'active_support'
+require 'active_support/all'
 require 'smart_attr/config_hash'
 
 module SmartAttr
@@ -23,6 +23,10 @@ module SmartAttr
         # }
         define_singleton_method "#{column_name}_config".to_sym do |*_args|
           config
+        end
+
+        define_singleton_method "#{column_name}_config_hash".to_sym do |*_args|
+          config.instance_variable_get :@config_hash
         end
 
         # result:
@@ -63,24 +67,46 @@ module SmartAttr
           self.send("#{column_name}_config")[:key]
         end
 
-        define_method "#{column_name}_name=".to_sym do |name|
-          write_attribute(column_name, self.class.send("#{column_name}_config")[name].try(:value))
-        end
-
-        config.keys.each do |_key|
-
-          define_method "#{column_name}_#{_key}!".to_sym do
-            write_attribute(column_name, self.class.send("#{column_name}_config")[_key.to_sym][:value])
+        if self.class.respond_to?(:write_attribute) && self.class.respond_to?(:read_attribute)
+          define_method "#{column_name}_name=".to_sym do |name|
+            write_attribute(column_name, self.class.send("#{column_name}_config")[name].try(:value))
           end
 
-          define_method "#{column_name}_#{_key}?".to_sym do
-            read_attribute(column_name) == self.class.send("#{column_name}_config")[_key.to_sym][:value]
+          config.keys.each do |_key|
+
+            define_method "#{column_name}_#{_key}!".to_sym do
+              write_attribute(column_name, self.class.send("#{column_name}_config")[_key.to_sym][:value])
+            end
+
+            define_method "#{column_name}_#{_key}?".to_sym do
+              read_attribute(column_name) == self.class.send("#{column_name}_config")[_key.to_sym][:value]
+            end
+          end
+        else
+          attr_accessor column_name
+
+          define_method "#{column_name}_name=".to_sym do |name|
+            send("#{column_name}=", self.class.send("#{column_name}_config")[name].try(:[], :value))
+          end
+
+          config.keys.each do |_key|
+
+            define_method "#{column_name}_#{_key}!".to_sym do
+              send("#{column_name}=", self.class.send("#{column_name}_config")[_key.to_sym][:value])
+            end
+
+            define_method "#{column_name}_#{_key}?".to_sym do
+              send(column_name) == self.class.send("#{column_name}_config")[_key.to_sym][:value]
+            end
           end
         end
+
       end
     end
   end
 end
 
-#ActiveRecord::Base.send :include, CleverColumn::Base
-Object.send :include, SmartAttr::Base
+# TODO
+# Object.send :include, SmartAttr::Base
+# ActiveRecord::Base.send :include, SmartAttr::Base if Module.constants.include? :ActiveRecord
+# Mongoid::Document.send :include,  SmartAttr::Base if Module.constants.include? :Mongoid
