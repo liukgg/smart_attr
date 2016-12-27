@@ -24,5 +24,11 @@ module SmartAttr
     def [](key)
       @config_hash[key]
     end
+
+    # TODO
+    # Add spec
+    # def method_missing
+    #   # delegate to Hash
+    # end
   end
 end

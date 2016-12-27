@@ -54,4 +54,22 @@ describe SmartAttr do
     end
   end
 
+  describe '#star_three!' do
+    let(:movie) { Movie.new }
+
+    it 'set value by name' do
+      movie.star_three!
+      expect(movie.star).to eq Movie.star_config[:three][:value]
+    end
+  end
+
+  describe '#star_three?' do
+    let(:movie) { Movie.new }
+
+    it 'set value by name' do
+      movie.star = 3
+      expect(movie.star_three?).to eq true
+    end
+  end
+
 end
