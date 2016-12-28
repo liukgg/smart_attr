@@ -12,6 +12,6 @@ rvm:
   #- 2.4.0
 
 before_script:
-  - sudo apt-get install mongodb
+  - sudo apt-get -y install mongodb
 
 script: bundle exec rspec spec
