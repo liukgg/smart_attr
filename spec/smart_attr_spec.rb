@@ -73,6 +73,14 @@ describe SmartAttr do
       end
     end
 
+    describe '#star_desc' do
+      let(:movie) { Movie.new }
+
+      it 'set value by name' do
+        movie.star = 3
+        expect(movie.star_desc).to eq 'three star'
+      end
+    end
 
   end
 
@@ -94,7 +102,7 @@ describe SmartAttr do
     end
 
     describe '#star_three?' do
-      let(:song) { Song.new }
+      let(:song) { Song.create(star: 0) }
 
       it 'set value by name' do
         song.star = 3
@@ -102,12 +110,20 @@ describe SmartAttr do
       end
 
       it 'set value by name' do
-
         song.star = 3
         song.save
 
         expect(song.star_three?).to eq true
         expect(song.read_attribute :star).to eq 3
+      end
+
+      it 'set value by name' do
+        song.star_name = :five
+        song.save
+
+        expect(song.star_three?).to eq false
+        expect(song.star_five?).to eq true
+        expect(song.read_attribute :star).to eq 5
       end
     end
 
