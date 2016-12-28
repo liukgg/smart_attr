@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SmartAttr do
 
   describe 'Basic Usage(Without database)' do
-    before(:each) do
+    before(:all) do
       load File.dirname(__FILE__) + "/fixtures/models.rb"
     end
 
@@ -84,7 +84,7 @@ describe SmartAttr do
 
   end
 
-  describe 'With Database and ActiveRecord' do
+  describe 'With Database and ActiveRecord(sqlite3)' do
     require 'yaml'
 
     before(:all) do
@@ -124,6 +124,43 @@ describe SmartAttr do
         expect(song.star_three?).to eq false
         expect(song.star_five?).to eq true
         expect(song.read_attribute :star).to eq 5
+      end
+    end
+
+  end
+
+  describe 'With Database and Mongoid(mongodb)' do
+    before(:all) do
+      load File.dirname(__FILE__) + "/fixtures/mongoid/models.rb"
+    end
+
+    after(:all) do
+      Book.delete_all
+    end
+
+    describe '#star_three?' do
+      let(:book) { Book.create(star: 0) }
+
+      it 'set value by name' do
+        book.star = 3
+        expect(book.star_three?).to eq true
+      end
+
+      it 'set value by name' do
+        book.star = 3
+        book.save
+
+        expect(book.star_three?).to eq true
+        expect(book.read_attribute :star).to eq 3
+      end
+
+      it 'set value by name' do
+        book.star_name = :five
+        book.save
+
+        expect(book.star_three?).to eq false
+        expect(book.star_five?).to eq true
+        expect(book.read_attribute :star).to eq 5
       end
     end
 
