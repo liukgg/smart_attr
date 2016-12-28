@@ -134,9 +134,9 @@ describe SmartAttr do
       load File.dirname(__FILE__) + "/fixtures/mongoid/models.rb"
     end
 
-    after(:all) do
-      Book.delete_all
-    end
+    #after(:all) do
+    #  Book.delete_all
+    #end
 
     describe '#star_three?' do
       let(:book) { Book.create(star: 0) }
