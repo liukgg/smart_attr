@@ -67,7 +67,8 @@ module SmartAttr
           self.send("#{column_name}_config")[:key]
         end
 
-        if self.class.respond_to?(:write_attribute) && self.class.respond_to?(:read_attribute)
+        all_instance_methods = self.private_instance_methods + self.instance_methods
+        if all_instance_methods.include?(:write_attribute) && all_instance_methods.include?(:read_attribute)
           define_method "#{column_name}_name=".to_sym do |name|
             write_attribute(column_name, self.class.send("#{column_name}_config")[name].try(:value))
           end

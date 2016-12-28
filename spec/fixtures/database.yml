@@ -1,0 +1,7 @@
+test:
+  adapter: sqlite3
+  database: db/smart_attr_test
+  host: 127.0.0.1
+  username: root
+  password: #root
+  encoding: utf8
