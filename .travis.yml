@@ -14,7 +14,7 @@ rvm:
 before_script:
   - yes | sudo apt-get -y install mongodb
   - ps aux|grep mongo
-  - /usr/bin/mongod &
+  - mongod &
   - ps aux|grep mongo
 
 script: bundle exec rspec spec
