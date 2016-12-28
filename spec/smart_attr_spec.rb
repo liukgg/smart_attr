@@ -88,13 +88,13 @@ describe SmartAttr do
     require 'yaml'
 
     before(:all) do
-      db_config = YAML::load_file(File.dirname(__FILE__) + "/fixtures/database.yml")
+      db_config = YAML::load_file(File.dirname(__FILE__) + "/fixtures/active_record/database.yml")
 
       ActiveRecord::Base.configurations = db_config
       ActiveRecord::Base.establish_connection(:test)
 
-      load File.dirname(__FILE__) + "/fixtures/schema.rb"
-      load File.dirname(__FILE__) + "/fixtures/active_record_models.rb"
+      load File.dirname(__FILE__) + "/fixtures/active_record/schema.rb"
+      load File.dirname(__FILE__) + "/fixtures/active_record/models.rb"
     end
 
     after(:all) do
