@@ -6,5 +6,8 @@ rvm:
   - 2.3.1
   - 2.3.2
   - 2.3.3
-  - 2.4.0
+
+  # Because ActiveSupport-4.2 requires json-1.8.3, but json-1.8.3 is not compatible with ruby 2.4
+  # https://github.com/flori/json/issues/303
+  #- 2.4.0
 script: bundle exec rspec spec
