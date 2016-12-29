@@ -69,11 +69,15 @@ module SmartAttr
 
         all_instance_methods = self.private_instance_methods + self.instance_methods
         if all_instance_methods.include?(:write_attribute) && all_instance_methods.include?(:read_attribute)
+
           define_method "#{column_name}_name=".to_sym do |name|
             write_attribute(column_name, self.class.send("#{column_name}_config")[name].try(:[], :value))
           end
 
           config.keys.each do |_key|
+            define_singleton_method "#{column_name}_#{_key}".to_sym do
+              self.where("#{column_name}" => self.send("#{column_name}_config")[_key.to_sym].try(:[], :value))
+            end
 
             define_method "#{column_name}_#{_key}!".to_sym do
               write_attribute(column_name, self.class.send("#{column_name}_config")[_key.to_sym].try(:[], :value))

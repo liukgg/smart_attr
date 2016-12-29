@@ -97,7 +97,7 @@ describe SmartAttr do
       load File.dirname(__FILE__) + "/fixtures/active_record/models.rb"
     end
 
-    after(:all) do
+    after(:each) do
       Song.delete_all
     end
 
@@ -127,6 +127,19 @@ describe SmartAttr do
       end
     end
 
+    describe 'scope: star_one' do
+      let!(:song) { Song.create(star: 1) }
+
+      it 'correctly count' do
+        expect(Song.count).to eq 1
+        expect(Song.star_one.count).to eq 1
+        expect(Song.star_two.count).to eq 0
+        expect(Song.star_three.count).to eq 0
+        expect(Song.star_four.count).to eq 0
+        expect(Song.star_five.count).to eq 0
+      end
+    end
+
   end
 
   describe 'With Database and Mongoid(mongodb)' do
@@ -134,9 +147,9 @@ describe SmartAttr do
       load File.dirname(__FILE__) + "/fixtures/mongoid/models.rb"
     end
 
-    #after(:all) do
-    #  Book.delete_all
-    #end
+    after(:each) do
+      Book.delete_all
+    end
 
     describe '#star_three?' do
       let(:book) { Book.create(star: 0) }
@@ -161,6 +174,19 @@ describe SmartAttr do
         expect(book.star_three?).to eq false
         expect(book.star_five?).to eq true
         expect(book.read_attribute :star).to eq 5
+      end
+    end
+
+    describe 'scope: star_one' do
+      let!(:book) { Book.create(star: 1) }
+
+      it 'correctly count' do
+        expect(Book.count).to eq 1
+        expect(Book.star_one.count).to eq 1
+        expect(Book.star_two.count).to eq 0
+        expect(Book.star_three.count).to eq 0
+        expect(Book.star_four.count).to eq 0
+        expect(Book.star_five.count).to eq 0
       end
     end
 
