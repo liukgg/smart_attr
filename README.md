@@ -77,7 +77,7 @@ movie.inspect # => "#<Movie:0x007fcc041b0490 @star=3>"
 
 ### Used With ActiveRecord
 
-It is almost the same like the basic usage when used with ActiveRecord.
+It is almost the same as the basic usage when used with ActiveRecord.
 
 There is just one difference between this and the basic usage, however, there is one extra  functionality when used with ActiveRecord.
 
@@ -137,7 +137,7 @@ Same like used with ActiveRecord.
 
 
 ## Supported Ruby Version
-From 2.0.0 To 2.3.3
+MRI: From 2.0.0 to 2.3.3
 
 NOTE: 2.4.0 is not supported yet!
 
