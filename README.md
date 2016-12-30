@@ -1,6 +1,7 @@
 # SmartAttr
 
 This gem helps you make your model's attribute smart.You can get many useful methods with only a little code.
+It is especially useful for an attribute which is enumerable, because with SmartAttr you can make it more readable and convinient, and you can get many useful methods meanwhile.
 
 ## Installation
 
@@ -146,6 +147,7 @@ NOTE: 2.4.0 is not supported yet!
 
 ## TODO
 - Introduce SimpleCov
+- Compare this to Rails' Enum, to make this gem more similar to Rails' enum so that people who are using Rails can learn this gem more easily.
 
 ## Development
 
